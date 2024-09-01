@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 
 import {
   motion,
@@ -39,7 +39,8 @@ export default function App() {
           position: "fixed",
           zIndex: 10,
           width: "100%",
-        }}>
+        }}
+      >
         <Navbar />
       </motion.div>
       <div className="w-full h-screen bg-blue-900" />
