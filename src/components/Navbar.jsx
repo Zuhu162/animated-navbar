@@ -7,13 +7,13 @@ import Logo from "./Logo";
 
 const NavIcons = [
   {
-    name: "Hero",
-    link: "#/",
+    name: "Home",
+    link: "#Home",
     component: Home,
   },
   {
-    name: "About",
-    link: "#About",
+    name: "Profile",
+    link: "#Profile",
     component: Profile,
   },
   {
@@ -28,9 +28,13 @@ const NavIcons = [
   },
 ];
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
-    <div className=" h-14 bg-black flex justify-between items-center backdrop-blur-sm container mx-auto navbar px-10 text-white border-radius rounded-lg">
+    <div
+      className={`h-14 bg-black flex justify-center items-center backdrop-blur-sm container mx-auto navbar px-10 text-white border-radius rounded-lg ${
+        props.width && window.innerWidth > 1024 ? `w-${props.width}` : "w-full"
+      } md:justify-between`}
+      style={{ transition: "width 0.3s ease" }}>
       <div className="hidden md:block w-[30px] h-[30px]">
         <Logo />
       </div>
