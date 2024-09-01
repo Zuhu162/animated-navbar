@@ -11,7 +11,7 @@ import {
 export default function App() {
   const { scrollYProgress } = useScroll();
   const [viewportHeight, setViewportHeight] = useState(0);
-  const [animatedNavbarPos, setAnimatedNavbarPos] = useState(20);
+  const [navWidth, setNavWidth] = useState("full");
 
   useEffect(() => {
     const updateViewportHeight = () => setViewportHeight(window.innerHeight);
@@ -22,12 +22,21 @@ export default function App() {
     return () => window.removeEventListener("resize", updateViewportHeight);
   }, []);
 
+  const springConfig = { stiffness: 300, damping: 30 };
+  const animatedNavbarPos = useSpring(20, springConfig);
+
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const scrollPercentage = latest * 100;
     if (scrollPercentage > 5) {
-      setAnimatedNavbarPos(viewportHeight - 100);
+      animatedNavbarPos.set(viewportHeight - 100);
+      setTimeout(() => {
+        setNavWidth("1/2");
+      }, 500);
     } else {
-      setAnimatedNavbarPos(20);
+      animatedNavbarPos.set(20);
+      setTimeout(() => {
+        setNavWidth("full");
+      }, 500);
     }
   });
 
@@ -41,10 +50,10 @@ export default function App() {
           width: "100%",
         }}
       >
-        <Navbar />
+        <Navbar width={navWidth} />
       </motion.div>
-      <div className="w-full h-screen bg-blue-900" />
-      <div className="w-full h-screen bg-blue-700" />
+      <div id="Home" className="w-full h-screen bg-blue-900" />
+      <div id="Profile" className="w-full h-screen bg-blue-700" />
     </div>
   );
 }
